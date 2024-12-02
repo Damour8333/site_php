@@ -1,0 +1,137 @@
+L'invite de commande que tu vois :
+
+```
+MariaDB [(none)]>
+```
+
+signifie que tu es connecté au serveur MariaDB, mais que tu n'as pas encore sélectionné de base de données pour travailler. Le `(none)` entre parenthèses indique qu'il n'y a pas de base de données active à ce moment-là.
+
+### Que faire ensuite ?
+Tu peux effectuer plusieurs actions à partir de cette invite.
+
+#### 1. **Lister les bases de données disponibles**
+   Pour voir quelles bases de données existent sur ton serveur MariaDB, tape cette commande :
+   ```sql
+   SHOW DATABASES;
+   ```
+
+   Cela retournera une liste de toutes les bases de données existantes.
+
+#### 2. **Créer une nouvelle base de données** (si tu en as besoin)
+   Si tu veux créer une base de données pour ton projet, comme `mon_site_db`, tu peux exécuter la commande suivante :
+   ```sql
+   CREATE DATABASE mon_site_db;
+   ```
+
+   Cela créera une base de données nommée `mon_site_db`.
+
+#### 3. **Sélectionner une base de données**
+   Une fois la base de données créée ou si tu veux simplement en utiliser une existante, tu dois la "sélectionner" pour commencer à y travailler. Pour cela, utilise la commande `USE` suivie du nom de la base de données :
+   ```sql
+   USE mon_site_db;
+   ```
+
+   Après cela, tu devrais voir une invite comme :
+   ```
+   MariaDB [mon_site_db]>
+   ```
+
+   Cela signifie que tu es maintenant connecté à la base de données `mon_site_db` et que tu peux commencer à y ajouter des tables, des données, etc.
+
+#### 4. **Afficher les tables existantes**
+   Si tu veux voir les tables déjà présentes dans la base de données que tu as sélectionnée, tu peux utiliser la commande :
+   ```sql
+   SHOW TABLES;
+   ```
+
+   Cela retournera la liste des tables existantes dans la base de données sélectionnée.
+
+#### 5. **Quitter MariaDB**
+   Une fois que tu as terminé de travailler avec MariaDB, tu peux quitter la session en tapant :
+   ```sql
+   EXIT;
+   ```
+
+---
+
+### Résumé :
+1. Si tu veux voir toutes les bases de données disponibles : `SHOW DATABASES;`.
+2. Si tu veux créer une nouvelle base de données : `CREATE DATABASE nom_de_base;`.
+3. Si tu veux sélectionner une base de données pour travailler avec : `USE nom_de_base;`.
+4. Pour quitter MariaDB : `EXIT;`.
+
+Cela devrait te permettre de commencer à interagir avec ta base de données MariaDB.
+
+
+
+L'erreur que tu vois dans le message d'erreur (`tree: command not found`) indique que la commande `tree` n'est pas installée sur ton environnement. De plus, `mysql: command not found` indique que la commande `mysql` n'est pas trouvée, ce qui signifie probablement que MySQL n'est pas accessible depuis le terminal.
+
+Voici les étapes pour résoudre ces problèmes dans Git Bash et pour exécuter correctement ton script :
+
+### 1. **Installation de `tree`**
+   Si tu veux afficher la structure des dossiers comme le fait la commande `tree`, tu peux installer `tree` sur ton système. Voici comment procéder sur Windows dans Git Bash.
+
+   - **Télécharger et installer `tree`** :
+     1. Ouvre Git Bash et tape la commande suivante :
+        ```bash
+        pacman -S tree
+        ```
+     2. Si `pacman` n'est pas disponible, tu peux télécharger l'exécutable de `tree` depuis [ici](https://github.com/ntop/ntopng/releases/download/v4.3.3/tree-1.8.0-win64.zip) et l'ajouter à ton `PATH`.
+
+   - **Vérifier si `tree` est installé** :
+     Après l'installation, essaie d'exécuter `tree` à partir de Git Bash :
+     ```bash
+     tree
+     ```
+
+### 2. **Vérification de MySQL sur Windows (XAMPP)**
+
+   L'erreur `mysql: command not found` indique que la commande MySQL n'est pas trouvée. Cela peut être dû à une mauvaise configuration du `PATH` ou si MySQL n'est pas installé dans un endroit où Git Bash peut y accéder.
+
+   Pour résoudre cela :
+   
+   - **Vérifier si MySQL est accessible dans Git Bash** :
+     1. Dans Git Bash, essaie de naviguer jusqu'au répertoire où MySQL est installé dans XAMPP. Habituellement, cela se trouve dans `C:\xampp\mysql\bin`.
+     2. Tape cette commande dans Git Bash :
+        ```bash
+        cd /c/xampp/mysql/bin
+        ./mysql -u root -p
+        ```
+
+   - **Ajouter MySQL au `PATH`** :
+     Si MySQL est installé mais inaccessible via Git Bash, tu peux ajouter son chemin à la variable `PATH` :
+     1. Dans Git Bash, ajoute le chemin de MySQL à la variable `PATH` :
+        ```bash
+        export PATH=$PATH:/c/xampp/mysql/bin
+        ```
+
+     2. Si tu veux que cette modification soit permanente, tu peux ajouter cette ligne dans ton fichier `~/.bashrc` (ou `~/.bash_profile`).
+
+   - **Redémarre Git Bash** après avoir ajouté MySQL au `PATH`.
+
+### 3. **Exécuter le script sans `tree` et avec MySQL configuré**
+
+Si tu veux exécuter le script sans afficher la structure avec `tree`, tu peux simplement commenter la ligne contenant la commande `tree` :
+
+   Dans ton script, trouve la ligne suivante :
+   ```bash
+   tree $jefsite
+   ```
+
+   Et commente-la en ajoutant un `#` au début :
+   ```bash
+   # tree $jefsite
+   ```
+
+   Après cela, réessaie d'exécuter ton script en utilisant :
+   ```bash
+   bash setup_site.sh
+   ```
+
+### Résumé des étapes :
+
+1. Installe ou configure `tree` si nécessaire.
+2. Assure-toi que MySQL est correctement installé et que son répertoire `bin` est dans le `PATH`.
+3. Commente la ligne avec la commande `tree` si tu veux éviter l'erreur.
+
+Une fois ces étapes effectuées, ton script devrait s'exécuter correctement sans erreurs liées à `tree` et à MySQL.

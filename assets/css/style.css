@@ -1,3 +1,7 @@
+.selector-for-some-widget {
+    box-sizing: content-box;
+  }
+
 body {
     font-family: Arial, sans-serif;
     background-color: #f4f4f4;
@@ -15,3 +19,33 @@ footer {
     background-color: #333;
     color: #fff;
 }
+
+/* Menu fixé en haut */
+.navbar {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 10;
+    background: rgba(0, 0, 0, 0.8);
+}
+
+.navbar-nav .nav-link {
+    color: white !important;
+    font-weight: bold;
+}
+ /* Effet d'animation de l'apparition */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .fuck{
+            margin :100px;
+            color: brown;
+            letter-spacing: 1px;
+        }

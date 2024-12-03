@@ -11,3 +11,22 @@ try {
 } catch (PDOException $e) {
     die("Erreur : " . $e->getMessage());  # Si erreur de connexion, afficher un message d'erreur
 }
+
+
+try {
+    // Création de la table 'images'
+    $sql = "
+        CREATE TABLE IF NOT EXISTS images (
+            id INT AUTO_INCREMENT PRIMARY KEY,  -- Identifiant unique pour chaque image
+            url VARCHAR(255) NOT NULL,          -- Chemin ou URL de l'image
+            title VARCHAR(255) DEFAULT NULL,    -- Titre de l'image
+            alt_text VARCHAR(255) DEFAULT NULL, -- Texte alternatif pour l'image
+            created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP -- Date de création
+        );
+    ";
+    $pdo->exec($sql);
+    echo "Table 'images' créée avec succès.";
+} catch (PDOException $e) {
+    die("Erreur lors de la création de la table : " . $e->getMessage());
+}
+
